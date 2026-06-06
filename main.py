@@ -1,6 +1,5 @@
-def main():
-    print("Hello from dsc190-final-project!")
+from surf_conditions.cli import main
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

@@ -1,10 +1,17 @@
 [project]
 name = "dsc190-final-project"
 version = "0.1.0"
-description = "Add your description here"
+description = "A command-line surf conditions checker for San Diego and Orange County."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+surf-conditions = "surf_conditions.cli:main"
 
 [dependency-groups]
 dev = [
@@ -13,3 +20,15 @@ dev = [
     "pytest>=9.0.3",
     "ruff>=0.15.16",
 ]
+
+[tool.ruff]
+line-length = 88
+src = ["src", "tests"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/surf_conditions"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["src", "tests"]
