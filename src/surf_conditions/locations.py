@@ -13,6 +13,8 @@ class Location:
     latitude: float
     longitude: float
     coops_station: str
+    ndbc_station: str | None
+    sea_temperature_url: str | None
 
 
 LOCATIONS: dict[str, Location] = {
@@ -23,6 +25,10 @@ LOCATIONS: dict[str, Location] = {
         latitude=32.8669,
         longitude=-117.2571,
         coops_station="9410230",
+        ndbc_station="LJAC1",
+        sea_temperature_url=(
+            "https://www.seatemperature.org/north-america/united-states/san-diego.htm"
+        ),
     ),
     "oc": Location(
         code="oc",
@@ -31,5 +37,10 @@ LOCATIONS: dict[str, Location] = {
         latitude=33.5934,
         longitude=-117.8827,
         coops_station="9410580",
+        ndbc_station=None,
+        sea_temperature_url=(
+            "https://www.seatemperature.org/north-america/united-states/"
+            "newport-beach.htm"
+        ),
     ),
 }
