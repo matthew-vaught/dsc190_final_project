@@ -1,9 +1,6 @@
 # Surf Conditions CLI
 
-A small command-line surf check for San Diego and Orange County. It pulls live
-or current online conditions for the beach you choose and reports the tide,
-tide direction, wind, air temperature, cloudiness, and water temperature in one
-terminal-friendly summary.
+A small command-line surf check for San Diego and Orange County. It pulls live or current online conditions for the beach you choose and reports the tide, tide direction, wind, air temperature, cloudiness, and water temperature in one terminal-friendly summary. This solves a very practical problem for me personally because now if I am ever working on my computer and I am thinking about going surfing soon, this provides me all of the information that I need to know to determine if I would want to go or not. The only two places I would really ever be surfing is San Diego when I am in school or Orange County over the summer, however I can always add more options later on to this tool if I branch out and start surfing in new places as well.
 
 ## Usage
 
