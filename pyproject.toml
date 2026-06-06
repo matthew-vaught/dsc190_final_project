@@ -3,7 +3,7 @@ name = "dsc190-final-project"
 version = "0.1.0"
 description = "A command-line surf conditions checker for San Diego and Orange County."
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.8"
 dependencies = []
 
 [build-system]
@@ -15,10 +15,10 @@ surf-conditions = "surf_conditions.cli:main"
 
 [dependency-groups]
 dev = [
-    "dvc>=3.67.1",
-    "mypy>=2.1.0",
-    "pytest>=9.0.3",
-    "ruff>=0.15.16",
+    "dvc>=3.67.1; python_version >= '3.10'",
+    "mypy>=2.1.0; python_version >= '3.10'",
+    "pytest>=9.0.3; python_version >= '3.10'",
+    "ruff>=0.15.16; python_version >= '3.10'",
 ]
 
 [tool.ruff]
@@ -29,6 +29,6 @@ src = ["src", "tests"]
 packages = ["src/surf_conditions"]
 
 [tool.mypy]
-python_version = "3.12"
+python_version = "3.10"
 strict = true
 files = ["src", "tests"]
