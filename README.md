@@ -21,12 +21,12 @@ San Diego surf check: Scripps Beach
 Updated: 2026-06-06 01:56 PM PDT
 
 Tide: 3.65 ft MLLW, going up
-Tide source: NOAA CO-OPS observed water level, 2026-06-06 01:48 PM PDT
 Wind: 10 mph SW
 Air temp: 66 F
 Cloudiness: Mostly Cloudy
-Weather source: NWS hourly forecast, 2026-06-06 01:00 PM PDT
-Water temp: 66.2 F (NOAA CO-OPS water temperature, 2026-06-06 01:48 PM PDT)
+Water temp: 66.2 F
+
+Logged to: /home/vaugh/surf_conditions_log.txt
 ```
 
 The CLI uses NOAA CO-OPS for tide data, the National Weather Service hourly
