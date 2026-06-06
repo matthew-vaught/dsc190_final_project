@@ -42,25 +42,39 @@ def build_report(location: Location, now: datetime | None = None) -> SurfReport:
 
 
 def format_report(report: SurfReport) -> str:
-    water_temp = (
-        f"{report.water_temperature.value} "
-        f"({report.water_temperature.source}, "
-        f"{_format_time(report.water_temperature.observed_at)})"
-        if report.water_temperature
-        else "unavailable from NOAA right now"
-    )
     return "\n".join(
         [
             f"{report.location.label} surf check: {report.location.beach}",
             f"Updated: {_format_time(report.generated_at)}",
             "",
             f"Tide: {report.tide.height_ft:.2f} ft MLLW, {report.tide.pattern}",
-            f"Tide source: {report.tide.source}, {_format_time(report.tide.observed_at)}",
             f"Wind: {report.weather.wind}",
             f"Air temp: {report.weather.temperature_f} F",
             f"Cloudiness: {report.weather.cloudiness}",
-            f"Weather source: {report.weather.source}, {_format_time(report.weather.observed_at)}",
-            f"Water temp: {water_temp}",
+            f"Water temp: {_format_water_temperature(report.water_temperature)}",
+        ],
+    )
+
+
+def format_log_entry(report: SurfReport) -> str:
+    return "\n".join(
+        [
+            "=" * 64,
+            f"Area queried: {report.location.code}",
+            f"Beach: {report.location.beach}",
+            f"Queried at: {_format_time(report.generated_at)}",
+            "",
+            f"Tide: {report.tide.height_ft:.2f} ft MLLW, {report.tide.pattern}",
+            f"Wind: {report.weather.wind}",
+            f"Air temp: {report.weather.temperature_f} F",
+            f"Cloudiness: {report.weather.cloudiness}",
+            f"Water temp: {_format_water_temperature(report.water_temperature)}",
+            "",
+            "Sources:",
+            f"- Tide: {report.tide.source}, {_format_time(report.tide.observed_at)}",
+            f"- Weather: {report.weather.source}, {_format_time(report.weather.observed_at)}",
+            _format_water_temperature_source(report.water_temperature),
+            "",
         ],
     )
 
@@ -112,3 +126,15 @@ def _format_time(value: datetime | None) -> str:
     if value is None:
         return "time unavailable"
     return value.astimezone(PACIFIC).strftime("%Y-%m-%d %I:%M %p %Z")
+
+
+def _format_water_temperature(reading: Reading | None) -> str:
+    if reading is None:
+        return "unavailable right now"
+    return reading.value
+
+
+def _format_water_temperature_source(reading: Reading | None) -> str:
+    if reading is None:
+        return "- Water temp: unavailable"
+    return f"- Water temp: {reading.source}, {_format_time(reading.observed_at)}"

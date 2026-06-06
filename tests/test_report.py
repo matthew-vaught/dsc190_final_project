@@ -5,7 +5,7 @@ from zoneinfo import ZoneInfo
 
 from surf_conditions.locations import LOCATIONS
 from surf_conditions.models import Reading, SurfReport, Tide, Weather
-from surf_conditions.report import format_report
+from surf_conditions.report import format_log_entry, format_report
 
 PACIFIC = ZoneInfo("America/Los_Angeles")
 
@@ -42,3 +42,38 @@ def test_format_report_includes_requested_conditions() -> None:
     assert "Air temp: 68 F" in output
     assert "Cloudiness: Partly Cloudy" in output
     assert "Water temp: 64.1 F" in output
+    assert "source" not in output.lower()
+
+
+def test_format_log_entry_includes_sources() -> None:
+    timestamp = datetime(2026, 6, 6, 9, 30, tzinfo=PACIFIC)
+    report = SurfReport(
+        location=LOCATIONS["oc"],
+        generated_at=timestamp,
+        tide=Tide(
+            height_ft=1.25,
+            pattern="receding",
+            observed_at=timestamp,
+            source="NOAA CO-OPS tide prediction",
+        ),
+        weather=Weather(
+            temperature_f=70,
+            wind="6 mph SW",
+            cloudiness="Mostly Sunny",
+            observed_at=timestamp,
+            source="NWS hourly forecast",
+        ),
+        water_temperature=Reading(
+            value="65.0 F",
+            observed_at=None,
+            source="SeaTemperature.org NOAA/satellite SST for 2026-06-06",
+        ),
+    )
+
+    output = format_log_entry(report)
+
+    assert "Area queried: oc" in output
+    assert "Sources:" in output
+    assert "- Tide: NOAA CO-OPS tide prediction" in output
+    assert "- Weather: NWS hourly forecast" in output
+    assert "- Water temp: SeaTemperature.org NOAA/satellite SST" in output

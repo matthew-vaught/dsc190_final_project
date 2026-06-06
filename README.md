@@ -38,6 +38,15 @@ available. If a local NOAA water-temperature sensor is unavailable, it falls
 back to a current sea-surface temperature page that publishes NOAA/satellite
 SST observations.
 
+Each run also appends a neatly formatted entry to:
+
+```text
+~/surf_conditions_log.txt
+```
+
+The terminal output stays short, while the log file keeps the queried area,
+timestamp, conditions, and data sources for each check.
+
 To install from GitHub for grading or reuse:
 
 ```bash

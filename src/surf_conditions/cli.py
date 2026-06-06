@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 
 from surf_conditions.http import SurfConditionsError
+from surf_conditions.logging import append_report_log
 from surf_conditions.locations import LOCATIONS
 from surf_conditions.report import build_report, format_report
 
@@ -31,4 +32,6 @@ def main(argv: list[str] | None = None) -> int:
     except SurfConditionsError as error:
         parser.exit(1, f"surf-conditions: {error}\n")
     print(format_report(report))
+    log_path = append_report_log(report)
+    print(f"\nLogged to: {log_path}")
     return 0
